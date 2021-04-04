@@ -1,4 +1,4 @@
-FROM php:8-fpm
+FROM php:8.0.3-fpm
 
 ARG DEBIAN_FRONTEND=noninteractive
 

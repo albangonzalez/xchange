@@ -17,9 +17,9 @@ services:
     volumes:
       - ./app/:/var/www/
     environment:
-      DATABASE_URL: "mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE}"
+      DATABASE_URL: "mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE}?serverVersion=5.7"
   db:
-    image: mariadb:latest
+    image: mysql:5.7.20
     ports:
       - "3306:3306"
     volumes:
