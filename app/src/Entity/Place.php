@@ -6,9 +6,10 @@ use App\Repository\PlaceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Gedmo\Mapping\Annotation as Gedmo;
 /**
- * @ORM\Entity(repositoryClass=PlaceRepository::class)
+ * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
+ * @Gedmo\Tree(type="nested")
  */
 class Place
 {
@@ -20,115 +21,61 @@ class Place
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
-
-    /**
      * @ORM\Column(type="integer")
+     * @Gedmo\TreeLeft
      */
     private $lft;
 
     /**
      * @ORM\Column(type="integer")
+     * @Gedmo\TreeLevel
      */
     private $lvl;
 
     /**
      * @ORM\Column(type="integer")
+     * @Gedmo\TreeRight
      */
     private $rgt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Place::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+     * @Gedmo\TreeRoot
      */
     private $root;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Place::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="children")
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+     * @Gedmo\TreeParent
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity=Place::class, mappedBy="parent", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Place::class, mappedBy="parent")
+     * @ORM\OrderBy({"lft" = "ASC"})
      */
     private $children;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
      */
     private $code;
 
-    public function __construct()
-    {
-        $this->children = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    public function getLft(): ?int
-    {
-        return $this->lft;
-    }
-
-    public function setLft(int $lft): self
-    {
-        $this->lft = $lft;
-
-        return $this;
-    }
-
-    public function getLvl(): ?int
-    {
-        return $this->lvl;
-    }
-
-    public function setLvl(int $lvl): self
-    {
-        $this->lvl = $lvl;
-
-        return $this;
-    }
-
-    public function getRgt(): ?int
-    {
-        return $this->rgt;
-    }
-
-    public function setRgt(int $rgt): self
-    {
-        $this->rgt = $rgt;
-
-        return $this;
-    }
-
     public function getRoot(): ?self
     {
         return $this->root;
-    }
-
-    public function setRoot(?self $root): self
-    {
-        $this->root = $root;
-
-        return $this;
     }
 
     public function getParent(): ?self
@@ -143,32 +90,14 @@ class Place
         return $this;
     }
 
-    /**
-     * @return Collection|self[]
-     */
-    public function getChildren(): Collection
+    public function getName(): ?string
     {
-        return $this->children;
+        return $this->name;
     }
 
-    public function addChild(self $child): self
+    public function setName(string $name): self
     {
-        if (!$this->children->contains($child)) {
-            $this->children[] = $child;
-            $child->setParent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeChild(self $child): self
-    {
-        if ($this->children->removeElement($child)) {
-            // set the owning side to null (unless already changed)
-            if ($child->getParent() === $this) {
-                $child->setParent(null);
-            }
-        }
+        $this->name = $name;
 
         return $this;
     }
