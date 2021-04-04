@@ -10,6 +10,8 @@ class PlaceFixtures extends Fixture
 {
     public const CITY_REFERENCE_PDC = 'pdc';
     public const COUNTRY_REFERENCE_MX  = 'mx';
+    public const COUNTRY_REFERENCE_US  = 'us';
+    public const CONTINENT_REFERENCE_EU  = 'eu';
     public function load(ObjectManager $manager)
     {
         $continentNames = [
@@ -23,6 +25,7 @@ class PlaceFixtures extends Fixture
         ];
 
         $countryNames = [
+            'US' => 'United States of America',
             'FR' => 'France',
             'MX' => 'Mexico',
             'CO' => 'Colombia',
@@ -53,6 +56,7 @@ class PlaceFixtures extends Fixture
             $city[$code]->setCode($code);
         }
 
+        $country['US']->setParent($continent['NA']);
         $country['FR']->setParent($continent['EU']);
         $country['MX']->setParent($continent['NA']);
         $country['CO']->setParent($continent['SA']);
@@ -62,6 +66,8 @@ class PlaceFixtures extends Fixture
         $city['CUN']->setParent($country['MX']);
         $city['CLO']->setParent($country['CO']);
 
+        $this->addReference(self::CONTINENT_REFERENCE_EU, $continent['EU']);
+        $this->addReference(self::COUNTRY_REFERENCE_US, $country['US']);
         $this->addReference(self::COUNTRY_REFERENCE_MX, $country['MX']);
         $this->addReference(self::CITY_REFERENCE_PDC, $city['PDC']);
 
