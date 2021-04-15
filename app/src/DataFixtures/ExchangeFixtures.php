@@ -10,7 +10,11 @@ use Doctrine\Persistence\ObjectManager;
 
 class ExchangeFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const EXCHANGE_REFERENCE_GCAPITAL01 = 'gcapital01';
+    public const EXCHANGE_REFERENCE_GCAPITAL02 = 'gcapital02';
     public const EXCHANGE_REFERENCE_CIBANCOA01 = 'cibanco01';
+    public const EXCHANGE_REFERENCE_INTERCAM01 = 'intercam01';
+    public const EXCHANGE_REFERENCE_SANJORGE01 = 'sanjorge01';
 
     public function load(ObjectManager $manager)
     {
@@ -69,7 +73,11 @@ class ExchangeFixtures extends Fixture implements DependentFixtureInterface
             ->setCountry($this->getReference(PlaceFixtures::COUNTRY_REFERENCE_MX))
             ->setPt($pts[4]);
 
+        $this->addReference(self::EXCHANGE_REFERENCE_GCAPITAL01, $exchanges[0]);
         $this->addReference(self::EXCHANGE_REFERENCE_CIBANCOA01, $exchanges[1]);
+        $this->addReference(self::EXCHANGE_REFERENCE_INTERCAM01, $exchanges[2]);
+        $this->addReference(self::EXCHANGE_REFERENCE_SANJORGE01, $exchanges[3]);
+        $this->addReference(self::EXCHANGE_REFERENCE_GCAPITAL02, $exchanges[4]);
 
         foreach ($exchanges as $exchange) {
             $manager->persist($exchange);
