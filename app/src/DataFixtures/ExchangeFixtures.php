@@ -10,6 +10,8 @@ use Doctrine\Persistence\ObjectManager;
 
 class ExchangeFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const EXCHANGE_REFERENCE_CIBANCOA01 = 'cibanco01';
+
     public function load(ObjectManager $manager)
     {
         $pts[0] = new Point(-87.0747472719578, 20.623315637298795);
@@ -66,6 +68,8 @@ class ExchangeFixtures extends Fixture implements DependentFixtureInterface
             ->setCity($this->getReference(PlaceFixtures::CITY_REFERENCE_PDC))
             ->setCountry($this->getReference(PlaceFixtures::COUNTRY_REFERENCE_MX))
             ->setPt($pts[4]);
+
+        $this->addReference(self::EXCHANGE_REFERENCE_CIBANCOA01, $exchanges[1]);
 
         foreach ($exchanges as $exchange) {
             $manager->persist($exchange);

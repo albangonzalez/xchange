@@ -38,6 +38,7 @@ class Rate
     private $value;
 
     /**
+     * @ORM\Id
      * @ORM\ManyToOne(targetEntity=OrderType::class)
      * @ORM\JoinColumn(nullable=false)
      */

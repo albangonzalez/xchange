@@ -9,6 +9,10 @@ use Doctrine\Persistence\ObjectManager;
 
 class CurrencyFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const CURRENCY_REFERENCE_MXN = 'mxn';
+    public const CURRENCY_REFERENCE_EUR = 'eur';
+    public const CURRENCY_REFERENCE_USD = 'usd';
+
     public function load(ObjectManager $manager)
     {
         $currencies['MXN'] = new Currency();
@@ -32,6 +36,10 @@ class CurrencyFixtures extends Fixture implements DependentFixtureInterface
             ->setCode('USD')
             ->setSign('$')
             ->setOrigin($this->getReference(PlaceFixtures::COUNTRY_REFERENCE_US));
+
+        $this->setReference(self::CURRENCY_REFERENCE_MXN, $currencies['MXN']);
+        $this->setReference(self::CURRENCY_REFERENCE_EUR, $currencies['EUR']);
+        $this->setReference(self::CURRENCY_REFERENCE_USD, $currencies['USD']);
 
         foreach ($currencies as $currency) {
             $manager->persist($currency);
