@@ -41,12 +41,6 @@ class Exchange
     private $city;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Place::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $country;
-
-    /**
      * @ORM\Column(type="string", length=16)
      */
     private $zipCode;
@@ -105,18 +99,6 @@ class Exchange
     public function setCity(?Place $city): self
     {
         $this->city = $city;
-
-        return $this;
-    }
-
-    public function getCountry(): ?Place
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?Place $country): self
-    {
-        $this->country = $country;
 
         return $this;
     }
