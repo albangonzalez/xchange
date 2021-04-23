@@ -26,7 +26,6 @@ class ExchangeFixtures extends Fixture implements DependentFixtureInterface
             ->setAddressLine2('Local #2, Col. Centro, Mun. Solidaridad')
             ->setZipCode(77710)
             ->setCity($this->getReference(PlaceFixtures::CITY_REFERENCE_PDC))
-            ->setCountry($this->getReference(PlaceFixtures::COUNTRY_REFERENCE_MX))
             ->setPt($pts[0]);
 
         $pts[1] = new Point(-87.07187025206844, 20.629468541611267);
@@ -37,7 +36,6 @@ class ExchangeFixtures extends Fixture implements DependentFixtureInterface
             ->setAddressLine2('Local #5, Col. Centro, Mun. Solidaridad')
             ->setZipCode(77710)
             ->setCity($this->getReference(PlaceFixtures::CITY_REFERENCE_PDC))
-            ->setCountry($this->getReference(PlaceFixtures::COUNTRY_REFERENCE_MX))
             ->setPt($pts[1]);
 
         $pts[2] = new Point(-87.07169088103586, 20.629714762101308);
@@ -48,7 +46,6 @@ class ExchangeFixtures extends Fixture implements DependentFixtureInterface
             ->setAddressLine2('Col. Centro, Mun. Solidaridad')
             ->setZipCode(77710)
             ->setCity($this->getReference(PlaceFixtures::CITY_REFERENCE_PDC))
-            ->setCountry($this->getReference(PlaceFixtures::COUNTRY_REFERENCE_MX))
             ->setPt($pts[2]);
 
         $pts[3] = new Point(-87.07852685754702, 20.634997173685868);
@@ -59,7 +56,6 @@ class ExchangeFixtures extends Fixture implements DependentFixtureInterface
             ->setAddressLine2('Mun. Solidaridad')
             ->setZipCode(77712)
             ->setCity($this->getReference(PlaceFixtures::CITY_REFERENCE_PDC))
-            ->setCountry($this->getReference(PlaceFixtures::COUNTRY_REFERENCE_MX))
             ->setPt($pts[3]);
 
         $pts[4] = new Point(-87.08407075643466, 20.62760592655482);
@@ -70,7 +66,6 @@ class ExchangeFixtures extends Fixture implements DependentFixtureInterface
             ->setAddressLine2('Mun. Solidaridad')
             ->setZipCode(77712)
             ->setCity($this->getReference(PlaceFixtures::CITY_REFERENCE_PDC))
-            ->setCountry($this->getReference(PlaceFixtures::COUNTRY_REFERENCE_MX))
             ->setPt($pts[4]);
 
         $this->addReference(self::EXCHANGE_REFERENCE_GCAPITAL01, $exchanges[0]);
