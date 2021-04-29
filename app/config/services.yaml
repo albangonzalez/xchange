@@ -29,3 +29,52 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    admin.continent:
+        class: App\Admin\ContinentAdmin
+        arguments: [~, App\Entity\Place, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: places, label: Continent }
+        public: true
+
+    admin.country:
+        class: App\Admin\CountryAdmin
+        arguments: [~, App\Entity\Place, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: places, label: Country }
+        public: true
+
+    admin.region:
+        class: App\Admin\RegionAdmin
+        arguments: [~, App\Entity\Place, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: places, label: Region }
+        public: true
+
+    admin.city:
+        class: App\Admin\CityAdmin
+        arguments: [~, App\Entity\Place, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: places, label: City }
+        public: true
+
+    admin.exchange:
+        class: App\Admin\ExchangeAdmin
+        arguments: [~, App\Entity\Exchange, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: places, label: Exchange }
+        public: true
+
+    admin.order_type:
+        class: App\Admin\OrderTypeAdmin
+        arguments: [~, App\Entity\OrderType, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: exchange, label: OrderType }
+        public: true
+
+#    admin.city:
+#        class: App\Admin\CityAdmin
+#        arguments: [~, App\Entity\Place, App\Controller\CityAdminController]
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: admin, label: Place }
+#        public: true
