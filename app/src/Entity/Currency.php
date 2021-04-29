@@ -90,4 +90,9 @@ class Currency
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->code . ' - (' . $this->name . ')';
+    }
 }
