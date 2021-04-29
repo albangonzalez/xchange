@@ -78,3 +78,17 @@ services:
 #        tags:
 #            - { name: sonata.admin, manager_type: orm, group: admin, label: Place }
 #        public: true
+
+    admin.currency:
+        class: App\Admin\CurrencyAdmin
+        arguments: [~, App\Entity\Currency, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Currency }
+        public: true
+
+    admin.rate:
+        class: App\Admin\RateAdmin
+        arguments: [~, App\Entity\Rate, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Rate }
+        public: true
