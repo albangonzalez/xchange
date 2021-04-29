@@ -31,6 +31,12 @@ class PlaceFixtures extends Fixture
             'CO' => 'Colombia',
         ];
 
+        $regionNames = [
+            'IDFR' => 'Île-de-France',
+            'QROO' => 'Quintana Roo',
+            'VALL' => 'Valle del Cauca',
+        ];
+
         $cityNames = [
             'PAR' => 'Paris',
             'PDC' => 'Playa del Carmen',
@@ -50,6 +56,12 @@ class PlaceFixtures extends Fixture
             $country[$code]->setCode($code);
         }
 
+        foreach ($regionNames as $code => $name) {
+            $region[$code] = new Place();
+            $region[$code]->setName($name);
+            $region[$code]->setCode($code);
+        }
+
         foreach ($cityNames as $code => $name) {
             $city[$code] = new Place();
             $city[$code]->setName($name);
@@ -61,17 +73,21 @@ class PlaceFixtures extends Fixture
         $country['MX']->setParent($continent['NA']);
         $country['CO']->setParent($continent['SA']);
 
-        $city['PAR']->setParent($country['FR']);
-        $city['PDC']->setParent($country['MX']);
-        $city['CUN']->setParent($country['MX']);
-        $city['CLO']->setParent($country['CO']);
+        $region['IDFR']->setParent($country['FR']);
+        $region['QROO']->setParent($country['MX']);
+        $region['VALL']->setParent($country['CO']);
+
+        $city['PAR']->setParent($region['IDFR']);
+        $city['PDC']->setParent($region['QROO']);
+        $city['CUN']->setParent($region['QROO']);
+        $city['CLO']->setParent($region['VALL']);
 
         $this->addReference(self::CONTINENT_REFERENCE_EU, $continent['EU']);
         $this->addReference(self::COUNTRY_REFERENCE_US, $country['US']);
         $this->addReference(self::COUNTRY_REFERENCE_MX, $country['MX']);
         $this->addReference(self::CITY_REFERENCE_PDC, $city['PDC']);
 
-        $places = $continent + $country + $city;
+        $places = $continent + $country + $region + $city;
 
         foreach ($places as $place) {
             $manager->persist($place);

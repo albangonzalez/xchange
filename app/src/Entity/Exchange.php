@@ -115,7 +115,7 @@ class Exchange
         return $this;
     }
 
-    public function getPt(): Point
+    public function getPt(): ?Point
     {
         return $this->pt;
     }
