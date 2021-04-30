@@ -8,29 +8,39 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=RateRepository::class)
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(columns={"exchange_id", "currency_source_id", "currency_target_id", "order_type_id"})})
  */
 class Rate
 {
     /**
      * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+    /**
      * @ORM\ManyToOne(targetEntity=Exchange::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $exchange;
 
     /**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity=Currency::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $currencySource;
 
     /**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity=Currency::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $currencyTarget;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=OrderType::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $orderType;
 
     /**
      * @ORM\Column(type="integer")
@@ -38,17 +48,16 @@ class Rate
     private $value;
 
     /**
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity=OrderType::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $orderType;
-
-    /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updatedAt;
 
     public function getExchange(): ?Exchange
     {
@@ -118,6 +127,18 @@ class Rate
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setIUpdateAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->createdAt = $updatedAt;
 
         return $this;
     }
