@@ -72,13 +72,6 @@ services:
             - { name: sonata.admin, manager_type: orm, group: exchange, label: OrderType }
         public: true
 
-#    admin.city:
-#        class: App\Admin\CityAdmin
-#        arguments: [~, App\Entity\Place, App\Controller\CityAdminController]
-#        tags:
-#            - { name: sonata.admin, manager_type: orm, group: admin, label: Place }
-#        public: true
-
     admin.currency:
         class: App\Admin\CurrencyAdmin
         arguments: [~, App\Entity\Currency, ~]
@@ -91,4 +84,11 @@ services:
         arguments: [~, App\Entity\Rate, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Rate }
+        public: true
+
+    admin.rate_history:
+        class: App\Admin\RateHistoryAdmin
+        arguments: [~, App\Entity\RateHistory, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: RateHistory }
         public: true
