@@ -4,9 +4,9 @@
 namespace App\EventSubscriber;
 
 
-use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Gedmo\Blameable\BlameableListener;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -14,22 +14,22 @@ class DoctrineExtensionSubscriber implements EventSubscriberInterface
 {
     private $blameableListener;
 
-    private $request;
+    private $requestStack;
 
     private $tokenStorage;
 
     public function __construct(
         BlameableListener $blameableListener,
-        Request $request,
+        RequestStack $requestStack,
         TokenStorageInterface $tokenStorage
     )
     {
         $this->blameableListener = $blameableListener;
-        $this->request = $request;
+        $this->requestStack = $requestStack;
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function getSubscribedEvents(): array
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::REQUEST => 'onKernelRequest',
@@ -44,7 +44,7 @@ class DoctrineExtensionSubscriber implements EventSubscriberInterface
         ) {
             $this->blameableListener->setUserValue($this->tokenStorage->getToken()->getUser());
         } else {
-            $this->blameableListener->setUserValue($this->request->getHost());
+            $this->blameableListener->setUserValue($this->requestStack->getCurrentRequest()->getHost());
         }
     }
 }
