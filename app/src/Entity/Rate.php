@@ -142,4 +142,14 @@ class Rate
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->id
+            . ' - ' . $this->exchange->getName()
+            . ': ' . $this->orderType->getCode()
+            . ' ' . $this->currencySource->getCode()
+            . ' -> ' . $this->currencyTarget->getCode();
+
+    }
 }
